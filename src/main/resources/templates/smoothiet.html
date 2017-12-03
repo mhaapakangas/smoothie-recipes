@@ -10,7 +10,7 @@
         <h2>Smoothiet</h2>
         <ul>
             <li th:each="smoothie: ${smoothielista}">
-                <span th:text="${smoothie.nimi}">smoothie</span> <a th:href="${'/poista-smoothie/' + smoothie.id}">(poista)</a>
+                <a th:href="${'/resepti/' + smoothie.id}" th:text="${smoothie.nimi}"></a> <a th:href="${'/poista-smoothie/' + smoothie.id}">(poista)</a>
             </li>
         </ul>
         <h4>Lisää uusi smoothie</h4>
