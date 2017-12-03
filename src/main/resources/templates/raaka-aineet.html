@@ -10,7 +10,7 @@
         <h2>Raaka-aineet</h2>
         <ul>
             <li th:each="raakaaine: ${raakaaineet}">
-                <span th:text="${raakaaine.nimi}">raaka-aine</span>
+                <span th:text="${raakaaine.nimi}">raaka-aine</span> <a th:href="${'/poista-raaka-aine/' + raakaaine.id}">(poista)</a>
             </li>
         </ul>
         
