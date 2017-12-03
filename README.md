@@ -1,4 +1,4 @@
-# tikape-runko
+# smoothie-recipes
 
-Tietokantojen perusteet -kurssilla tehtävän web-sovelluksen pohja.
+Tietokantojen perusteet -kurssin harjoitustyö
 
