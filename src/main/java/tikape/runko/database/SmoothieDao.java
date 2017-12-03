@@ -11,15 +11,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import tikape.runko.domain.RaakaAine;
 import tikape.runko.domain.Smoothie;
 
 public class SmoothieDao implements Dao<Smoothie, Integer> {
 
     private final Database database;
+    private final SmoothieRaakaAineDao smoothieRaakaAineDao;
 
     public SmoothieDao(Database database) {
         this.database = database;
+        this.smoothieRaakaAineDao = new SmoothieRaakaAineDao(database);
     }
 
     @Override
@@ -69,7 +70,8 @@ public class SmoothieDao implements Dao<Smoothie, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
-        Connection conn = database.getConnection();
+        smoothieRaakaAineDao.deleteBySmoothie(key);
+        Connection conn = database.getConnection(); 
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM Smoothie "
                 + "WHERE id = ?");
         stmt.setInt(1, key);

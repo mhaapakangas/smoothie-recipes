@@ -16,9 +16,11 @@ import tikape.runko.domain.RaakaAine;
 public class RaakaAineDao implements Dao<RaakaAine, Integer> {
 
     private final Database database;
+    private final SmoothieRaakaAineDao smoothieRaakaAineDao;
 
     public RaakaAineDao(Database database) {
         this.database = database;
+        this.smoothieRaakaAineDao = new SmoothieRaakaAineDao(database);
     }
 
     @Override
@@ -68,6 +70,7 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
+        smoothieRaakaAineDao.deleteByRaakaAine(key);
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM RaakaAine "
                 + "WHERE id = ?");
