@@ -1,6 +1,8 @@
 package tikape.runko;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -8,6 +10,9 @@ import tikape.runko.database.Database;
 import tikape.runko.database.RaakaAineDao;
 import tikape.runko.database.SmoothieDao;
 import tikape.runko.database.SmoothieRaakaAineDao;
+import tikape.runko.domain.RaakaAine;
+import tikape.runko.domain.Smoothie;
+import tikape.runko.domain.SmoothieRaakaAine;
 
 public class Main {
 
@@ -78,5 +83,30 @@ public class Main {
             res.redirect("/smoothiet");
             return "";
         });
+               
+        get("/resepti/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            Integer smoothieId = Integer.parseInt(req.params("id"));
+            List<SmoothieRaakaAine> resepti = smoothieRaakaAineDao.haeResepti(smoothieId);
+            Smoothie smoothie = smoothieDao.findOne(smoothieId);
+            
+            List<String> ohjeet = new ArrayList<>();
+            for (SmoothieRaakaAine ohje : resepti) {
+                RaakaAine raakaAine = raakaAineDao.findOne(ohje.getRaakaAineId());
+                String ohjeString = raakaAine.getNimi();
+                
+                if (!ohje.getMaara().isEmpty()) {
+                    ohjeString += ", " + ohje.getMaara();
+                }
+                if (!ohje.getOhje().isEmpty()) {
+                    ohjeString += ", " + ohje.getOhje();
+                }
+                ohjeet.add(ohjeString);
+            }
+            
+            map.put("smoothie", smoothie);
+            map.put("resepti", ohjeet);
+            return new ModelAndView(map, "resepti");
+        }, new ThymeleafTemplateEngine());
     }
 }
