@@ -72,4 +72,26 @@ public class SmoothieRaakaAineDao {
         });
         return ohjeet;
     }
+    
+    public void deleteBySmoothie(Integer key) throws SQLException {
+        Connection conn = database.getConnection(); 
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM SmoothieRaakaAine "
+                + "WHERE smoothie_id = ?");
+        stmt.setInt(1, key);
+
+        stmt.executeUpdate();
+        stmt.close();
+        conn.close();
+    }
+    
+    public void deleteByRaakaAine(Integer key) throws SQLException {
+        Connection conn = database.getConnection(); 
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM SmoothieRaakaAine "
+                + "WHERE raakaaine_id = ?");
+        stmt.setInt(1, key);
+
+        stmt.executeUpdate();
+        stmt.close();
+        conn.close();
+    }
 }
