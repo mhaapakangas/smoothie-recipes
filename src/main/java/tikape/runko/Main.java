@@ -50,6 +50,13 @@ public class Main {
             res.redirect("/raaka-aineet");
             return "";
         });
+        
+        get("/poista-raaka-aine/:id", (req, res) -> {
+            Integer raakaAine = Integer.parseInt(req.params("id"));
+            raakaAineDao.delete(raakaAine);
+            res.redirect("/raaka-aineet");
+            return "";
+        });
      
     }
 }
