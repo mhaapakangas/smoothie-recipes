@@ -43,5 +43,26 @@ public class Main {
             
             return new ModelAndView(map, "smoothielista");
         }, new ThymeleafTemplateEngine());
+                  
+        get("/smoothiet", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("smoothielista", smoothieDao.findAll());
+            
+            return new ModelAndView(map, "smoothiet");
+        }, new ThymeleafTemplateEngine());
+        
+        post("/smoothiet", (req, res) -> {
+            String smoothie = req.queryParams("nimi");
+            smoothieDao.lisaaSmoothie(smoothie);
+            res.redirect("/smoothiet");
+            return "";
+        });
+        
+        get("/poista-smoothie/:id", (req, res) -> {
+            Integer smoothie = Integer.parseInt(req.params("id"));
+            smoothieDao.delete(smoothie);
+            res.redirect("/smoothiet");
+            return "";
+        });
     }
 }
