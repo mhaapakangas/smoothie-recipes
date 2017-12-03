@@ -71,4 +71,14 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer> {
         // ei toteutettu
     }
 
+    public void lisaaRaakaAine(String nimi) throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO RaakaAine"
+                + " (nimi) VALUES (?)");
+        stmt.setString(1, nimi);
+
+        stmt.executeUpdate();
+        stmt.close();
+        conn.close();
+    }
 }

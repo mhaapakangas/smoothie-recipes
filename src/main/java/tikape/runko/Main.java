@@ -43,5 +43,13 @@ public class Main {
             
             return new ModelAndView(map, "raaka-aineet");
         }, new ThymeleafTemplateEngine());
+        
+        post("/raaka-aineet", (req, res) -> {
+            String raakaAine = req.queryParams("nimi");
+            raakaAineDao.lisaaRaakaAine(raakaAine);
+            res.redirect("/raaka-aineet");
+            return "";
+        });
+     
     }
 }
