@@ -1,0 +1,23 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Smoothiet</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h2>Smoothiet</h2>
+        <ul>
+            <li th:each="smoothie: ${smoothielista}">
+                <span th:text="${smoothie.nimi}">smoothie</span> <a th:href="${'/poista-smoothie/' + smoothie.id}">(poista)</a>
+            </li>
+        </ul>
+        <h4>Lisää uusi smoothie</h4>
+        <form method="POST" action="/smoothiet">
+            Smoothien nimi:<br/>
+            <input type="text" name="nimi"/><br/>
+            <input type="submit" value="Lisää smoothie"/>
+        </form>
+    </body>
+</html>
